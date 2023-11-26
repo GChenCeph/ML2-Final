@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 from model import RegressionNN
 from torch.utils.data import DataLoader
-import cloader as loader
+from cloader import CustomDataloader
 
 
 ####################################################
@@ -33,12 +33,12 @@ def main():
 
     # Load data
     correlation = load_json_data('category_correlations.json')
-    matrix = load_csv_to_matrix('hu_distance_matrix.json')
+    matrix = load_csv_to_matrix('hu_distance_matrix.csv')
     hotels = load_json_data('hu_hotel_filtered.json')
     scores = [hotel.get('Total Score', 0) for hotel in hotels]
-    revenue = []  # Placeholder
+    revenue = [hotel.get('Total Room Receipts', 0) for hotel in load_json_data('hu_hotel_revenue.json')]
 
-    dataset = loader(matrix, scores, correlation, revenue)
+    dataset = CustomDataloader(matrix, scores, correlation, revenue)
     data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     # Model

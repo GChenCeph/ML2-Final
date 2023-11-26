@@ -26,7 +26,7 @@ def add_indexes_to_data(data):
 
 # Process and save filtered and indexed data
 def process_and_save_filtered_data(city_prefix):
-    hotels_data = load_json_data('hu_hotel_merged.json')
+    hotels_data = load_json_data(f'{city_prefix}_hotel_post.json')
     utils_data = load_json_data(f'{city_prefix}_utils_post.json')
 
     filtered_hotels = filter_hotels_by_score(filter_by_coordinates(hotels_data))
@@ -39,6 +39,8 @@ def process_and_save_filtered_data(city_prefix):
     save_json_data(indexed_utils, f'{city_prefix}_utils_filtered.json')
 
 # List of city prefixes
-city_prefixes = ['hu']
+city_prefixes = ['ny', 'dc', 'la', 'hu']
 
-process_and_save_filtered_data(city_prefixes[0])
+# Process each city's hotel and utils data
+for city_prefix in city_prefixes:
+    process_and_save_filtered_data(city_prefix)

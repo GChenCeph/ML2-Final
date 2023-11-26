@@ -41,8 +41,7 @@ def save_distance_matrix_to_csv(distance_matrix, hotels_data, utils_data, filena
             csvwriter.writerow([f'Hotel_{hotels_data[i]["Index"]}'] + row)
 
 # List of city prefixes
-city_prefixes = ['hu']
-
+city_prefixes = ['ny', 'dc', 'la', 'hu']
 
 # Process each city's hotel and utilities data
 for city_prefix in city_prefixes:
